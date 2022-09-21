@@ -1,0 +1,15 @@
+!Namelist of grid setting
+! Vertical grid setup
+! Constants
+&parameters
+nu=0.0e-6     ! background momentum diffusion
+nu_t=0.0e-7   ! background temperature diffusion
+nu_s=0.0e-7   ! background salinity diffusion
+beta1=0.6     ! Shortwave penetration parameter (Jerov water type) [m]
+beta2=20.0    ! Shortwave penetration parameter [m]
+r_long=0.62   ! Shortwave penetration parameter [non dimensional]
+tau_temp_day=10.0  ! Relaxation timescale temperature [day]
+tau_salt_day=10.0  ! Relaxation timescale salinity [day]
+tau_u_day=10.0   ! Relaxation timescale of u [day]
+tau_v_day=10.0   ! Relaxation timescale of v [day]	
+/

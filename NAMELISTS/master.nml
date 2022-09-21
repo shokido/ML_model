@@ -1,0 +1,4 @@
+&master
+namelist_set="set_param.nml"
+namelist_io="io_test_nud_ctl.nml" 
+/ 
