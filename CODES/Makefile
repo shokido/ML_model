@@ -1,13 +1,12 @@
 #Set compiler
-FC  = ifort
-LD  = ifort
-NETCDF_INCDIR=/usr/local/netcdf-fortran-4.4.4/include
-NETCDF_LIBDIR=-L/usr/local/netcdf-fortran-4.4.4/lib -lnetcdff -L/usr/local/hdf5/lib -L/usr/local/netcdf4/lib -lnetcdf -lhdf5_hl -lhdf5 -lcurl -I/usr/local/netcdf4/include -lnetcdf -L/usr/local/netcdf-4.7.3/lib
+FC  = gfortran
+NETCDF_INCDIR= -I/usr/local/include/ 
+NETCDF_LIBDIR=-L/Users/kido/fortran/library_gfortran -L/usr/local/lib -lnetcdf -lnetcdff -lncdf_read
 #-L/usr/local/netcdf-fortran-4.4.4/lib -lnetcdff -L/usr/local/hdf5/lib -L/usr/local/netcdf4/lib -L/usr/local/lib -lnetcdf -L/opt/intel/lib/intel64_lin -lhdf
-FFLAGS += -I$(NETCDF_INCDIR)
+FFLAGS += $(NETCDF_INCDIR)
 #FFLAGS +=-g -check all,noarg_temp_created
 LDFLAGS += $(NETCDF_LIBDIR) -lnetcdf -lnetcdff 
-LDFLAGS += -fpp -qopenmp 
+LDFLAGS += -cpp -fopenmp 
 TARGET = 1d.out
 TARGET_LIN = do_lin.out
 OBJ  = param.o \
@@ -54,9 +53,9 @@ MODS  = ncdf_write.mod \
         input_files.mod 
 all: $(TARGET)
 $(TARGET): $(OBJ_ncdf) $(OBJ) $(OBJ_main)
-	$(LD) -o $@ $(OBJ_ncdf) $(OBJ) $(OBJ_main) ${LDFLAGS} ${FFLAGS}
+	$(FC) -o $@ $(OBJ_ncdf) $(OBJ) $(OBJ_main) ${LDFLAGS} ${FFLAGS}
 $(TARGET_LIN): $(OBJ_ncdf) $(OBJ) $(OBJ_lin)
-	$(LD) -o $@ $(OBJ_ncdf) $(OBJ) $(OBJ_lin) ${LDFLAGS} ${FFLAGS}
+	$(FC) -o $@ $(OBJ_ncdf) $(OBJ) $(OBJ_lin) ${LDFLAGS} ${FFLAGS}
 #Objects--------------------------------------
 ncdf_write.o:ncdf_write.f90
 	$(FC) -c $< ${LDFLAGS} ${FFLAGS} ${CPPFLAGS}

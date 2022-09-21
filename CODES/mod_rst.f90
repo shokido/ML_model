@@ -71,13 +71,13 @@ contains
     real(idx) :: tmp_4D(1:nlon,1:nlat,1:nlev,1)
     tmp_4D=0.0_idx
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"temp",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"temp",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=salt(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"salt",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"salt",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=u(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"u",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"u",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=v(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"v",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"v",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
   end subroutine output_rst_rho
   subroutine output_rst_q(fname,nlon,nlat,nlev,qq,l)
     implicit none
@@ -87,8 +87,8 @@ contains
     real(idx) :: tmp_4D(1:nlon,1:nlat,1:nlev,1)
     tmp_4D=0.0_idx
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"qq",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"qq",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
     tmp_4D(1:nlon,1:nlat,1:nlev,1)=l(1:nlon,1:nlat,1:nlev)
-    call writenet_wv(trim(fname),"l",1,nlon,1,nlat,1,nlev,1,1,tmp_4D)
+    call writenet_wv(trim(fname),"l",(/1,1,1,1/),(/nlon,nlat,nlev,1/),tmp_4D)
   end subroutine output_rst_q
 end module mod_rst

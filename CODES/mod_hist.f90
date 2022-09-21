@@ -1,5 +1,5 @@
 module mod_hist
-#include 'CPPLISTS.h'
+#include "CPPLISTS.h"
   !================================================
   ! Module program for create/write history file
   ! (Snapshot file)
@@ -253,62 +253,62 @@ contains
     tmp_4D = 0.0_idx
     if (out_sw .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=sw(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"sw",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"sw",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_lw .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=lw(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"lw",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"lw",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_sh .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=sh(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"sh",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"sh",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_lh .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=lh(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"lh",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"lh",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_ev .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=ev(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"ev",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"ev",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_pr .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=pr(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"pr",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"pr",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_ust .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=ust(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"ust",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"ust",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_vst .eqv. .TRUE.) then
        tmp_3D(1:nlon,1:nlat,1)=vst(1:nlon,1:nlat)
-       call writenet_wv(trim(fname),"vst",1,nlon,1,nlat,itime,itime,&
+       call writenet_wv(trim(fname),"vst",(/1,1,itime/),(/nlon,nlat,itime/),&
             & tmp_3D)
     end if
     if (out_temp .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"temp",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"temp",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_salt .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=salt(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"salt",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"salt",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_u .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=u(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"u",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"u",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_v .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=v(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"v",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"v",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
   end subroutine output_hist_rho
@@ -333,34 +333,34 @@ contains
     tmp_4D=0.0_idx
     if (out_bvf .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=bvf(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"bvf",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"bvf",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_shear .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=shear(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"shear",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"shear",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
 #if defined(NNF) | defined(KC) | defined(bd)
     if (out_qq .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_l .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=l(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"l",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"l",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
 #endif
     if (out_km .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=km(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"km",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"km",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_kt .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=kt(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"kt",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"kt",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
   end subroutine output_hist_q

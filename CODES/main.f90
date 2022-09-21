@@ -15,7 +15,7 @@ program main
   use eos_sub
   use solve_diag
   !$ use omp_lib
-#include 'CPPLISTS.h'
+#include "CPPLISTS.h"
 #if defined(NNF)
   use nnf_sub
 #endif

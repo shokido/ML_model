@@ -2,7 +2,7 @@ module solve_diag
   use param
   implicit none
   private
-#include 'CPPLISTS.h'
+#include "CPPLISTS.h"
   !-------------------------------------------------------
   real(idx),parameter :: qq_min = 1.0e-8_idx,qql_min= 1.0e-9_idx
   real(idx) :: tiny=1.0e-12_idx

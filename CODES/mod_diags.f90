@@ -383,22 +383,22 @@ contains
     tmp_4D=0.0_idx
     if (out_trate .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp_rate(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"temp_rate",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"temp_rate",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_tvdiff .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp_vdiff(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"temp_vdiff",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"temp_vdiff",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_tpenet .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp_penet(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"temp_penet",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"temp_penet",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_trelax .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=temp_relax(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"temp_relax",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"temp_relax",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     temp_rate(:,:,:)=0.0_idx ; temp_vdiff(:,:,:)=0.0_idx
@@ -428,17 +428,17 @@ contains
     tmp_4D=0.0_idx
     if (out_srate .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=salt_rate(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"salt_rate",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"salt_rate",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_svdiff .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=salt_vdiff(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"salt_vdiff",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"salt_vdiff",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_srelax .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=salt_relax(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"salt_relax",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"salt_relax",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     salt_rate(:,:,:)=0.0_idx ; salt_vdiff(:,:,:)=0.0_idx
@@ -469,34 +469,34 @@ contains
     tmp_4D=0.0_idx
     if (out_uvrate .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=u_rate(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"u_rate",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"u_rate",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=v_rate(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"v_rate",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"v_rate",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_uvcor .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=u_cor(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"u_cor",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"u_cor",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=v_cor(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"v_cor",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"v_cor",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_uvvdiff .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=u_vdiff(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"u_vdiff",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"u_vdiff",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=v_vdiff(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"v_vdiff",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"v_vdiff",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_uvrelax .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=u_relax(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"u_relax",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"u_relax",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=v_relax(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"v_relax",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"v_relax",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     u_rate(:,:,:)=0.0_idx ; u_cor(:,:,:)=0.0_idx
@@ -526,27 +526,27 @@ contains
     tmp_4D=0.0_idx
     if (out_qqrate .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq_rate(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq_rate",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq_rate",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_qqvdiff .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq_vdiff(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq_vdiff",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq_vdiff",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_qqsp .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq_sp(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq_sp",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq_sp",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_qqbp .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq_bp(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq_bp",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq_bp",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     if (out_qqdisp .eqv. .TRUE.) then
        tmp_4D(1:nlon,1:nlat,1:nlev,1)=qq_disp(1:nlon,1:nlat,1:nlev)
-       call writenet_wv(trim(fname),"qq_disp",1,nlon,1,nlat,1,nlev,itime,itime,&
+       call writenet_wv(trim(fname),"qq_disp",(/1,1,1,itime/),(/nlon,nlat,nlev,itime/),&
             & tmp_4D)
     end if
     qq_rate(:,:,:)=0.0_idx ; qq_vdiff(:,:,:)=0.0_idx
