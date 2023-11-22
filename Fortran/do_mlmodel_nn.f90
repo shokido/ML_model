@@ -37,7 +37,7 @@ program do_mlmodel_nn
   dt=600.0
   dt_start%year=1900;dt_start%month=1;dt_start%day=1
   dt_start%hour=0;dt_start%minute=0;dt_start%second=0
-  dt_end%year=1900;dt_end%month=1;dt_end%day=11
+  dt_end%year=1900;dt_end%month=1;dt_end%day=21
   dt_end%hour=0;dt_end%minute=0;dt_end%second=0
   dt_output=60.0_idx*60.0_idx*24.0_idx
   bottom_depth=1000.0
@@ -97,9 +97,9 @@ program do_mlmodel_nn
         temp_1d(iz)=15.0_idx
         salt_1d(iz)=35.0_idx
      else if (lev_rho(iz) .le. 50.0_idx) then
-        temp_1d(iz)=15.0_idx+(9.0_idx-15.0_idx)*(lev_rho(iz)-20.0_idx)/(50.0_idx-20.0_idx)
+        temp_1d(iz)=15.0_idx+(12.0_idx-15.0_idx)*(lev_rho(iz)-20.0_idx)/(50.0_idx-20.0_idx)
      else
-        temp_1d(iz)=9.0_idx
+        temp_1d(iz)=12.0_idx
      end if
      salt_1d(iz)=35.0_idx
      u_1d(iz)=0.0_idx
@@ -123,9 +123,9 @@ program do_mlmodel_nn
      uflx=0.4;vflx=0.0
 
      !   Case 2
-     hflx_nosolar=-20.0_idx;hflx_solar=0.0_idx
-     sflx=0.0_idx
-     uflx=0.0;vflx=0.0
+     !hflx_nosolar=-20.0_idx;hflx_solar=0.0_idx
+     !sflx=0.0_idx
+     !uflx=0.0;vflx=0.0
      !hflx_solar=0.0_idx
      !sflx=0.0_idx
      !uflx=0.1;vflx=0.0
