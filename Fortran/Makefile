@@ -1,6 +1,6 @@
 # Make file for compiling JCOPE-T code
 FC = gfortran
-FFLAGS = -fbounds-check -Wall
+FFLAGS = -O2
 CFLAGS =
 
 TARGET_NN=exec_1d_nn.out

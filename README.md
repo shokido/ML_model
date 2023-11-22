@@ -1,6 +1,7 @@
 # ML_model
-Fortran source code of 1-D ocean mixed layer model 
-Fortran compiler and NetCDF libary are required to execute this model.
+Fortran/Python source code of 1-D ocean mixed layer model with a turbulence closure model
+
+For Python version, you need to install numpy,scipy, and datetime to execute the model
 
 
 References
