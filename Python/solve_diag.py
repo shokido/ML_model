@@ -8,9 +8,9 @@ qq_min = 1.0e-8
 def solve_tri_implicit(A_in, B_in, C_in, D_in):
     N=np.shape(A_in)[0]
     ab = np.zeros((3, N), dtype=complex)
-    ab[0, 1:] = A_in[1:N]
+    ab[0, 1:] = C_in[0:(N-1)]
     ab[1, :] = B_in[0:N]
-    ab[2, :-1] = C_in[0:(N-1)]
+    ab[2, :-1] = A_in[1:N]    
     X = solve_banded((1, 1), ab, D_in)
     return X
 # Subroutine for calculating the next temperature

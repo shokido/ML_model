@@ -3,12 +3,12 @@ from ml_param import *
 from ml_util import *
 from nnf_sub import *
 from solve_diag import *
-import datetime as dt
+import datetime as dtime
 import time
 # Constants and parameters
 fname_out = "out_case_nn.txt"
-dt_start=dt.datetime(1900,1,1,0,0,0)
-dt_end=dt.datetime(1900,1,11,0,0,0)
+dt_start=dtime.datetime(1900,1,1,0,0,0)
+dt_end=dtime.datetime(1900,1,21,0,0,0)
 dz = 5.0
 lat = 45.0
 ntime = 6 * 24 * 20  # Adjust the number of time steps as needed
@@ -58,20 +58,24 @@ qq_next_1d = np.zeros(nz_rho + 1)
 l_next_1d = np.zeros(nz_rho + 1)
 kq_1d = np.zeros(nz_rho)
 
-
+nstep_out=0
+for itime in range(1, ntime + 1):
+    if itime % (ntime_output) == 0:
+        nstep_out+=1
 # Open output file for writing
 with open(fname_out, "w") as output_file:
-    output_file.write("z_rho\n")
-    output_file.writelines([f"{z}\n" for z in z_rho])
+    output_file.write(str(nstep_out)+"\n")
+    out_list=[f"{ivar} " for ivar in z_rho];out_list.append("\n")
+    output_file.writelines(out_list)
 
 # Set initial conditions for temperature, salinity, and velocity
 for iz in range(nz_rho):
     if lev_rho[iz] <= 20.0:
         temp_1d[iz] = 15.0
     elif lev_rho[iz] <= 50.0:
-        temp_1d[iz] = 15.0 + (9.0 - 15.0) * (lev_rho[iz] - 20.0) / (50.0 - 20.0)
+        temp_1d[iz] = 15.0 + (12.0 - 15.0) * (lev_rho[iz] - 20.0) / (50.0 - 20.0)
     else:
-        temp_1d[iz] = 9.0
+        temp_1d[iz] = 12.0
     salt_1d[iz] = 35.0
     u_1d[iz] = 0.0
     v_1d[iz] = 0.0
@@ -79,10 +83,11 @@ for iz in range(nz_rho):
 qq_1d, l_1d = initialize_turb(nz_q, z_q)
 # Main time-stepping loop
 for itime in range(1, ntime + 1):
-    hflx_nosolar = -20.0
+    dt_now=dt_start+dtime.timedelta(seconds=int(itime*dt))
+    hflx_nosolar = 0.0
     hflx_solar = 0.0
     sflx = 0.0
-    uflx = 0.0
+    uflx = 0.4
     vflx = 0.0
     #   Case 2
     #hflx_solar=0.0
@@ -104,7 +109,6 @@ for itime in range(1, ntime + 1):
     salt_next_1d=cal_next_salt(dt, nz_rho, z_rho, z_q, salt_1d, ks_1d, sflx, salt_correct_1d)
     u_next_1d,v_next_1d=cal_next_uv(dt, nz_rho, z_rho, z_q, u_1d, v_1d, km_1d, coriolis, uflx, vflx, u_correct_1d, v_correct_1d)
     qq_next_1d=cal_next_qq(dt, nz_rho, z_rho, z_q, qq_1d, bvf_1d, shear_1d, l_1d, kq_1d, km_1d, kt_1d, uflx, vflx, B_1)
-#    l_next_1d=diag_l_mynnf(nz_rho, z_q, bvf_1d, qq_1d, uflx, vflx, hflx_solar, hflx_nosolar, sflx)
     l_next_1d=diag_l_mynnf(nz_rho, z_q, bvf_1d, qq_1d, uflx, vflx, hflx_solar, hflx_nosolar, sflx)
     
     # Update values
@@ -119,15 +123,15 @@ for itime in range(1, ntime + 1):
     if itime % (ntime_output) == 0:
         print(itime,temp_next_1d[nz_rho - 1])
         with open(fname_out, "a") as output_file:
-            output_file.write(f"{itime * dt}\n")
-            output_file.write("Temperature:\n")
-            output_file.writelines([f"{temp}\n" for temp in temp_1d])
-            output_file.write("Salinity:\n")
-            output_file.writelines([f"{salt}\n" for salt in salt_1d])
-            output_file.write("U Velocity:\n")
-            output_file.writelines([f"{u}\n" for u in u_1d])
-            output_file.write("V Velocity:\n")
-            output_file.writelines([f"{v}\n" for v in v_1d])
+            output_file.write(str(dt_now.year)+" "+str(dt_now.month)+" "+str(dt_now.day)+" "+str(dt_now.hour)+" "+str(dt_now.minute)+" "+str(dt_now.second)+"\n")
+            out_list=[f"{ivar} " for ivar in temp_1d];out_list.append("\n")
+            output_file.writelines(out_list)
+            out_list=[f"{ivar} " for ivar in salt_1d];out_list.append("\n")
+            output_file.writelines(out_list)
+            out_list=[f"{ivar} " for ivar in u_1d];out_list.append("\n")
+            output_file.writelines(out_list)
+            out_list=[f"{ivar} " for ivar in v_1d];out_list.append("\n")
+            output_file.writelines(out_list)
 
 print("Simulation completed.")
 end = time.time()

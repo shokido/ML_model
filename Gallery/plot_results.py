@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import datetime as dt
 fname_in="out_case_nn.txt"
+#fname_in="../Python/out_case_nn.txt"
 f=open(fname_in,"r")
 lines=f.readlines()
 f.close()
