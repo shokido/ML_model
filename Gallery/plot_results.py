@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import datetime as dt
 fname_in="out_case_nn.txt"
+out_form="X11"
+#out_form="png"
 #fname_in="../Python/out_case_nn.txt"
 f=open(fname_in,"r")
 lines=f.readlines()
@@ -89,4 +91,7 @@ plt.colorbar()
 # plt.subplot(2,1,2)
 # plt.plot(temp[:,-1])
 plt.tight_layout(rect=[0,0,1,0.96])
-plt.show()
+if (out_form=="png"):
+    plt.savefig("sample_MLmodel.png")
+else:
+    plt.show()
