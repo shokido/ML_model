@@ -81,19 +81,23 @@ def diag_l_mynnf(N, Z_Q, bvf, Q2, tau_x, tau_y, sw, nsw, salflux):
     qz_int = np.sum(dz * (func1[1:] + func1[:-1]) * 0.5)
     lt_inv = (q_int / (0.23 * qz_int)) * np.ones(N)
     xi = np.abs(Z_Q[0:N]) * mo_inv
-    mask = xi >= 1
-    ls_inv = np.where(mask, 3.7 / (kappa * np.abs(Z_Q[0:N])), 0)
-    mask = (xi >= 0) & ~mask
-    ls_inv = np.where(mask, (1.0 + 2.7 * xi) / (kappa * np.abs(Z_Q[0:N])), ls_inv)
-
-    mask = ~mask
-    ls_inv = np.where(mask, ((1.0 - 100.0 * xi) ** (-0.2)) / (kappa * np.abs(Z_Q[0:N])), ls_inv)
+    ls_inv=np.copy(xi)
+    ind_1=np.where(xi>=1)[0]
+    if (len(ind_1)>0):
+        ls_inv[ind_1]=3.7/(kappa * np.abs(Z_Q[ind_1]))
+    ind_2=np.where((xi>=0)&(xi<1))[0]
+    if (len(ind_2)>0):
+        ls_inv[ind_2]=(1.0 + 2.7 * xi[ind_2])/(kappa * np.abs(Z_Q[ind_2]))
+    ind_3=np.where(xi<0)[0]
+    if (len(ind_3)>0):
+        ls_inv[ind_3]=((1.0 - 2.7 * xi[ind_2])**(-0.2))/(kappa * np.abs(Z_Q[ind_3]))
     bvf_targ[1:N]=np.copy(bvf)
     bvf_targ[0] = bvf[0]
     mask = bvf_targ >= 0
     lb_inv = np.where(mask, np.sqrt(bvf_targ / (Q2[0:N]+tiny*np.ones(N))) / 0.53, 0.0 + tiny)
 
     l_inv = ls_inv + lt_inv + lb_inv
+    #print(ls_inv)
     L[0:N] = 1.0 / l_inv
     return L
 # Subroutine cal_kq
