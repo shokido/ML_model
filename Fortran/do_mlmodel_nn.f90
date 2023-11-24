@@ -125,20 +125,14 @@ program do_mlmodel_nn
      ! Case 1 wind deepening
      ! No heat/salt flux, only zonal wind stress with amplitude of 0.2 [N/m^2]
      hflx_nosolar=0.0_idx;hflx_solar=0.0_idx
-!     sflx=0.0_idx
-!     uflx=0.2;vflx=0.0
-!     uflx=0.5;vflx=0.0
-     !sflx=-2.5e-5 ! (E-P)
-   !  uflx=1.0;vflx=0.0
-
+     uflx=0.2;vflx=0.0
      !   Case 2
-     hflx_nosolar=-30.0_idx;hflx_solar=0.0_idx
-     sflx=0.0_idx
-     uflx=0.0;vflx=0.0
+     !hflx_nosolar=-30.0_idx;hflx_solar=0.0_idx
+     !sflx=0.0_idx
+     !uflx=0.0;vflx=0.0
      !  Case 3
-     hflx_nosolar=30.0_idx;hflx_solar=0.0_idx
-     sflx=0.0_idx
-!     uflx=0.0;vflx=0.0
+     !hflx_nosolar=30.0_idx;hflx_solar=0.0_idx
+     !sflx=0.0_idx
      !  Case 4
      hflx_nosolar=-30.0_idx;hflx_solar=0.0_idx
      sflx=0.0_idx
