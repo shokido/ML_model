@@ -1,5 +1,5 @@
 module ml_utils
-  use param
+  use ml_param
   implicit none
   private
   type datetime
@@ -60,8 +60,9 @@ contains
     integer :: iz
     do iz=1,nz-1
        ! Buoyancy frequency
-       bv(iz) =  - 1.0_idx * g * (cal_pdens(salt(iz+1),temp(iz+1))- cal_pdens(salt(iz),temp(iz))) / &
-            & ((z_rho(iz+1)-z_rho(iz))* cal_pdens(salt(iz),temp(iz)))
+       bv(iz) =  - 1.0_idx * g * (cal_pdens(salt(iz),temp(iz))- cal_pdens(salt(iz+1),temp(iz+1))) / &
+            & ((z_rho(iz)-z_rho(iz+1))* &
+            & 0.5*(cal_pdens(salt(iz),temp(iz))+cal_pdens(salt(iz+1),temp(iz+1))))
     end do
   end function cal_bvf
   function cal_shear(nz,z_rho,u,v) result(shear)
@@ -73,8 +74,8 @@ contains
     integer :: iz
     do iz=1,nz-1
        ! Shear
-       uz = (u(iz+1)-u(iz)) / (z_rho(iz+1)-z_rho(iz))
-       vz = (v(iz+1)-v(iz)) / (z_rho(iz+1)-z_rho(iz))
+       uz = (u(iz)-u(iz+1)) / (z_rho(iz)-z_rho(iz+1))
+       vz = (v(iz)-v(iz+1)) / (z_rho(iz)-z_rho(iz+1))
        shear(iz) = (uz**2 + vz**2 + tiny)
     end do
   end function cal_shear
