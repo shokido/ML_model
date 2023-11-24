@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime as dt
-fname_in="out_case_nn.txt"
+#fname_in="../Fortran/out_case_nn.txt"
 out_form="X11"
 #out_form="png"
-#fname_in="../Python/out_case_nn.txt"
+fname_in="out_case_nn.txt"
 f=open(fname_in,"r")
 lines=f.readlines()
 f.close()
@@ -51,10 +51,12 @@ clevs_t=np.arange(10,16,0.2)
 clevs_s=np.arange(32,36.2,0.2)
 clevs_uv=np.arange(-0.3,0.4,0.05)
 xticks=times[0::5]
+xticks=times[0::30]
+xticks=times[0::60]
 print(times)
-ylim=[-70,0]
-fig = plt.figure(figsize=(5, 8))
-plt.subplot(4,1,1)
+ylim=[70,0]
+fig = plt.figure(figsize=(12, 8))
+plt.subplot(2,2,1)
 plt.contourf(x,y,np.transpose(temp),cmap="jet",extend="both",levels=clevs_t)
 plt.xticks(xticks)
 plt.ylim(ylim)
@@ -63,7 +65,7 @@ plt.xlabel("Time")
 plt.ylabel("Depth")
 plt.colorbar()
 
-plt.subplot(4,1,2)
+plt.subplot(2,2,2)
 plt.contourf(x,y,np.transpose(salt),cmap="jet",extend="both",levels=clevs_s)
 plt.xticks(xticks)
 plt.ylim(ylim)
@@ -71,7 +73,7 @@ plt.title("Salinity")
 plt.xlabel("Time")
 plt.ylabel("Depth")
 plt.colorbar()
-plt.subplot(4,1,3)
+plt.subplot(2,2,3)
 plt.contourf(x,y,np.transpose(u),cmap="jet",extend="both",levels=clevs_uv)
 plt.xticks(xticks)
 plt.ylim(ylim)
@@ -79,7 +81,7 @@ plt.title("Zonal velocity")
 plt.xlabel("Time")
 plt.ylabel("Depth")
 plt.colorbar()
-plt.subplot(4,1,4)
+plt.subplot(2,2,4)
 plt.contourf(x,y,np.transpose(v),cmap="jet",extend="both",levels=clevs_uv)
 plt.xticks(xticks)
 plt.ylim(ylim)

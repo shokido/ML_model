@@ -30,28 +30,29 @@ def cal_beta(s, t):
     beta = (rho_1 - rho_2) / (rho_1 * ds)
     return beta
 
-def cal_bvf(z_rho, temp, salt):
+def cal_bvf(z_rho, temp, salt,NB=-1):
     # Calculate the buoyancy frequency (N2) of seawater as a function of vertical grid information (z_rho),
     # temperature (temp), and salinity (salt)
     nz = len(z_rho)
-    diff_pdens=(cal_pdens(salt[1:nz],temp[1:nz])-cal_pdens(salt[0:(nz-1)],temp[0:(nz-1)]))/cal_pdens(salt[0:(nz-1)],temp[0:(nz-1)])
-    bv=-1*g*diff_pdens/(z_rho[1:nz]-z_rho[0:(nz-1)])
+    if (NB==-1):
+        NB=nz
+#    diff_pdens=(cal_pdens(salt[0:(NB-1)],temp[0:(NB-1)])-cal_pdens(salt[1:NB],temp[1:NB]))/cal_pdens(salt[0:(NB-1)],temp[0:(NB-1)])
+    diff_pdens=cal_pdens(salt[0:(NB-1)],temp[0:(NB-1)])-cal_pdens(salt[1:NB],temp[1:NB])
+    sum_pdens=0.5*(cal_pdens(salt[0:(NB-1)],temp[0:(NB-1)])+cal_pdens(salt[1:NB],temp[1:NB]))
+    bv=-1*g*diff_pdens/(sum_pdens*(z_rho[0:(NB-1)]-z_rho[1:NB]))
     return bv
 
-def cal_shear(z_rho, u, v):
+def cal_shear(z_rho, u, v,NB=-1):
     # Calculate the shear of ocean currents as a function of vertical grid information (z_rho),
     # and horizontal velocity components (u and v)
     nz = len(z_rho)
-    shear = np.zeros(nz - 1)
-    diff_z=z_rho[1:nz]-z_rho[0:(nz-1)]
-    uz=u[1:nz]-u[0:(nz-1)]
-    vz=v[1:nz]-v[0:(nz-1)]
-    shear=((uz/diff_z)**2 +(vz/diff_z)**2+tiny)
-#    for iz in range(nz - 1):
-#        uz = (u[iz + 1] - u[iz]) / (z_rho[iz + 1] - z_rho[iz])
-#        vz = (v[iz + 1] - v[iz]) / (z_rho[iz + 1] - z_rho[iz])
-#        shear[iz] = (uz**2 + vz**2 + tiny)
-    
+    if (NB==-1):
+        NB=nz
+    shear = np.zeros(NB - 1)
+    diff_z=z_rho[0:(NB-1)]-z_rho[1:NB]
+    uz=u[0:(NB-1)]-u[1:NB]
+    vz=v[0:(NB-1)]-v[1:NB]
+    shear=((uz/diff_z)**2 +(vz/diff_z)**2+tiny)    
     return shear
 
 def initialize_turb(N, z):

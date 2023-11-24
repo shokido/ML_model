@@ -1,4 +1,4 @@
-module param
+module ml_param
   implicit none
   ! Select float (idx=4) or double (idx=8)
   integer,parameter :: idx=8
@@ -14,5 +14,4 @@ module param
   real(idx) :: nu_t                 ! backgroud diffusion of temperature
   real(idx) :: nu_s                 ! backgroud diffusion of salinity
   real(idx) :: beta1,beta2,r_long   ! shortwave penetration parameters
-  namelist/parameters/beta1,beta2,r_long
-end module param
+end module ml_param

@@ -1,5 +1,5 @@
 module nnf_sub
-  use param
+  use ml_param
   use ml_utils
   implicit none
   private
@@ -120,6 +120,7 @@ contains
        else
           ls_inv=((1.0_idx-100.0_idx*xi)**(-0.2_idx)) / (kappa*abs(zz(i)))
        end if
+!       write(*,*) zz(i),xi,ls_inv
        ! Lt
        lt_inv= q_int / (0.23_idx*qz_int)
        ! Lb
@@ -134,7 +135,6 @@ contains
           lb_inv=0.0_idx+tiny
        end if
        l_inv = ls_inv+lt_inv+lb_inv
-       !l_inv = lt_inv
        L(i)=1.0_idx / l_inv
     end do
   end subroutine diag_l_mynnf
@@ -180,11 +180,11 @@ contains
     real(idx),intent(in) :: km(n-1)
     real(idx),intent(inout) :: kq(n)
     integer :: i
-    kq(1)=Sq*km(1)
+    kq(1)=0.5*Sq*km(1)
     do i =1,n-2
        kq(i+1) = 0.5_idx * (km(i)+km(i+1)) * Sq
     end do
-    kq(n) = 0.5_idx * km(n-1) * Sq
+    kq(n) = km(n-1) * Sq
   end subroutine cal_kq
   !============================================================================
 end module nnf_sub

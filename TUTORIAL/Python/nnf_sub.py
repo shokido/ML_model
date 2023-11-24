@@ -67,43 +67,55 @@ def mynnf25_vdiff(N, bvf, shear2, Q2, L):
 
 
 # Subroutine diag_l_mynnf
-def diag_l_mynnf(N, Z_Q, bvf, Q2, tau_x, tau_y, sw, nsw, salflux):
+def diag_l_mynnf(N, z_q, bvf, Q2, tau_x, tau_y, sw, nsw, salflux,NB=-1):
+    if (NB==-1):
+        NB=N
     L = np.zeros(N+1)
     bvf_targ = np.zeros(N)
     mo_inv = cal_mo_inv(T0, S0, tau_x, tau_y, sw, nsw, salflux)
-    L[N] = 0.0
+    L[0] = 0.0
     q_int = 0.0
     qz_int = 0.0
-    dz = np.diff(Z_Q)
-    func1 = np.sqrt(Q2)
+    dz = -1*np.diff(z_q[0:NB+1])
+    func1 = np.sqrt(Q2[0:NB+1])
     q_int = np.sum(dz * (func1[1:] + func1[:-1]) * 0.5)
-    func1 = np.sqrt(Q2) * np.abs(Z_Q)
+    func1 = np.sqrt(Q2[0:NB+1]) * np.abs(z_q[0:NB+1])
     qz_int = np.sum(dz * (func1[1:] + func1[:-1]) * 0.5)
     lt_inv = (q_int / (0.23 * qz_int)) * np.ones(N)
-    xi = np.abs(Z_Q[0:N]) * mo_inv
+    xi = np.abs(z_q[1:N+1]) * mo_inv
+    z_q_copy=np.copy(z_q[1:N+1])
     ls_inv=np.copy(xi)
     ind_1=np.where(xi>=1)[0]
     if (len(ind_1)>0):
-        ls_inv[ind_1]=3.7/(kappa * np.abs(Z_Q[ind_1]))
+        ls_inv[ind_1]=3.7/(kappa * np.abs(z_q_copy[ind_1]))
     ind_2=np.where((xi>=0)&(xi<1))[0]
     if (len(ind_2)>0):
-        ls_inv[ind_2]=(1.0 + 2.7 * xi[ind_2])/(kappa * np.abs(Z_Q[ind_2]))
+        ls_inv[ind_2]=(1.0 + 2.7 * xi[ind_2])/(kappa * np.abs(z_q_copy[ind_2]))
     ind_3=np.where(xi<0)[0]
     if (len(ind_3)>0):
-        ls_inv[ind_3]=((1.0 - 2.7 * xi[ind_2])**(-0.2))/(kappa * np.abs(Z_Q[ind_3]))
-    bvf_targ[1:N]=np.copy(bvf)
-    bvf_targ[0] = bvf[0]
-    mask = bvf_targ >= 0
-    lb_inv = np.where(mask, np.sqrt(bvf_targ / (Q2[0:N]+tiny*np.ones(N))) / 0.53, 0.0 + tiny)
+        ls_inv[ind_3]=((1.0 - 100 * xi[ind_3])**(-0.2))/(kappa * np.abs(z_q_copy[ind_3]))
+    bvf_targ[0:(N-1)]=np.copy(bvf)
+    bvf_targ[N-1]=bvf[N-2]
+    lb_inv=np.copy(xi)
+    q2_copy=np.copy(Q2[1:N+1])
 
+    ind_1=np.where(bvf_targ>=0)[0]
+    ind_2=np.where(bvf_targ<0)[0]
+    if (len(ind_1)>0):
+        lb_inv[ind_1]=np.sqrt(bvf_targ[ind_1] / (q2_copy[ind_1]+tiny*np.ones(len(ind_1))))/0.53
+    if (len(ind_2)>0):
+        lb_inv[ind_2]=tiny*np.ones(len(ind_2))
     l_inv = ls_inv + lt_inv + lb_inv
-    #print(ls_inv)
-    L[0:N] = 1.0 / l_inv
+    L[1:N+1] = 1.0 / l_inv
+    if (NB < N):
+        L[NB+1:]=np.nan
     return L
 # Subroutine cal_kq
-def cal_kq(n, km):
-    kq=np.zeros(n)
-    kq[0] = SQ * km[0]
-    kq[1:(n-1)]=0.5*(km[0:(n-2)]+km[1:(n-1)])*SQ
-    kq[n-1]=0.5*km[n-2]*SQ
+def cal_kq(n, km,NB=-1):
+    if (NB==-1):
+        NB=n
+    kq=np.zeros(NB)
+    kq[0] = 0.5*SQ * km[0]
+    kq[1:(NB-1)]=0.5*(km[0:(NB-2)]+km[1:(NB-1)])*SQ
+    kq[NB-1]=kq[NB-2]
     return(kq)
