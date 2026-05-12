@@ -23,6 +23,7 @@ module nnf_sub
   !R_fc: Critical flux Richardson number
   real(idx),parameter :: R_fc=gamma1 / (gamma1+gamma2)
   real(idx) :: tiny=1.0e-12_idx
+  real(idx) :: lb_coef=0.53_idx
   ! public setting--------------------------------------------------------
   public :: cal_SH_my2,cal_SM_my2,cal_Rf
   public :: cal_SH_mynnf25,cal_SM_mynnf25
@@ -130,7 +131,7 @@ contains
           bvf_targ=bvf(i-1)
        end if
        if (bvf_targ .ge. 0) then
-          lb_inv=sqrt(bvf_targ/(Q2(i)+tiny)) / 0.53_idx
+          lb_inv=sqrt(bvf_targ/(Q2(i)+tiny)) / lb_coef
        else
           lb_inv=0.0_idx+tiny
        end if
