@@ -3,6 +3,19 @@ Fortran/Python source code of 1-D ocean mixed layer model with a turbulence clos
 
 For Python version, you need to install numpy,scipy, and datetime to execute the model
 
+## Contents
+
+- `TUTORIAL/`: tutorial version of the 1-D mixed layer model. Basic
+  explanations of the model, governing equations, output format, and simple
+  experiments are provided in `TUTORIAL/README.md`.
+- `TUTORIAL/Fortran/`: Fortran tutorial code. See
+  `TUTORIAL/Fortran/README.md` for compilation and execution instructions.
+- `TUTORIAL/Python/`: Python tutorial code. See
+  `TUTORIAL/Python/README.md` for package requirements and execution
+  instructions.
+- `TUTORIAL/Gallery/`: sample output, plotting script, and an example figure.
+- `MULTI/`: source code for multi-column or extended experiments.
+
 
 References
 1. Kido, S., and T. Tozuka 
@@ -14,4 +27,3 @@ https://doi.org/10.1175/JCLI-D-17-0133.1
 "Impacts of salinity variation on the mixed-layer processes and sea surface temperature in the Kuroshio-Oyashio confluence region"
 Journal of Geophysical Research: Oceans, 126, e2020JC016914. 
 https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2020JC016914
-
